@@ -28,3 +28,28 @@ fn test_split_strings() {
     assert_eq!(split_strings("abcde"), vec!["ab", "cd", "e_"]);
     assert_eq!(split_strings("abcdef"), vec!["ab", "cd", "ef"]);
 }
+
+
+fn split_strings2(s: &str) -> Vec<String> {
+    s.chars()
+        .collect::<Vec<_>>()
+        .chunks(2)
+        .map(|c| {
+            if c.len() == 1 {
+                format!("{}_", c[0])
+            } else {
+                c.into_iter().collect()
+            }
+        })
+        .collect()
+}
+
+#[test]
+fn test_split_strings2() {
+    assert_eq!(split_strings2("a"), vec!["a_"]);
+    assert_eq!(split_strings2("ab"), vec!["ab"]);
+    assert_eq!(split_strings2("abc"), vec!["ab", "c_"]);
+    assert_eq!(split_strings2("abcd"), vec!["ab", "cd"]);
+    assert_eq!(split_strings2("abcde"), vec!["ab", "cd", "e_"]);
+    assert_eq!(split_strings2("abcdef"), vec!["ab", "cd", "ef"]);
+}
